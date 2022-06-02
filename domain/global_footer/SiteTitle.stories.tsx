@@ -6,5 +6,9 @@ export default {
 };
 
 export const Primary = () => (
-  <SiteTitle title="katsushi-ougi.com" description="on web development" />
+  <SiteTitle
+    title="katsushi-ougi.com"
+    href="/"
+    description="on web development"
+  />
 );

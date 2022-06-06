@@ -17,4 +17,10 @@
     --header-height: 222px;
     --sidebar-width: 375px;
   }
+
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
 }

@@ -10,12 +10,14 @@ export type SiteTitleProps = {
 const SiteTitle: FC<SiteTitleProps> = ({ title, href, description }) => {
   return (
     <header className="font-en uppercase leading-[1] ">
-      <h1 className="font-[700] text-[50px] tracking-[-1px]">
+      <h1 className="font-[700] tracking-[-1px] text-[1.875rem] md:text-[3.125rem] md:relative md:left-[-3px]">
         <Link href={href}>
           <a>{title}</a>
         </Link>
       </h1>
-      <p className="tracking-[2px] mt-[10px]">{description}</p>
+      <p className="tracking-[2px] mt-[10px] md:relative md:left-[-1px]">
+        {description}
+      </p>
     </header>
   );
 };

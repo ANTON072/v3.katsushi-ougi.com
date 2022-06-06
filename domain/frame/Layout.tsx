@@ -1,6 +1,8 @@
 import React, { FC } from "react";
+import { GlobalFooter } from "../global_footer";
 
 import { GlobalHeader } from "../global_header";
+import { Sidebar } from "../sidebar";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -39,13 +41,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <main className="flex-1 w-[100%] md:max-w-[calc(var(--max-width)-var(--sidebar-width)-var(--padding)*2)] md:pr-[calc(var(--padding)*2)] md:border-r-solid md:border-r-[1px] md:border-r-[color:var(--grey3),width:1px]">
           {children}
         </main>
-        <aside className="pt-[var(--padding)] border-t-[1px] border-t-solid border-t-[color:var(--grey3)] md:w-[var(--sidebar-width)] md:pt-0 md:pl-[var(--padding)] md:border-t-0">
-          sidebar
-        </aside>
+        <Sidebar />
       </div>
-      <footer className="py-[calc(var(--padding)*2)] px-[var(--padding)] uppercase text-center md:w-[100%] md:mx-auto md:max-w-[var(--max-width)] md:text-left">
-        <p>©2022 katsushi-ougi.com</p>
-      </footer>
+      <GlobalFooter />
     </div>
   );
 };

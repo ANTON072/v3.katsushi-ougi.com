@@ -23,4 +23,9 @@
   #__next {
     height: 100%;
   }
+
+  .text-link {
+    @apply text-[color:var(--red)];
+    @apply hover:underline;
+  }
 }

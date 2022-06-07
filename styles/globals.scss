@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Colors */
+    --black: #000;
+    --grey1: #ccc;
+    --grey2: #aaa;
+    --grey3: #eee;
+    --red: #900;
+
+    /* Sizes */
+    --max-width: 1376px;
+    --padding: 38px;
+    --header-height: 222px;
+    --sidebar-width: 375px;
+  }
+
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
+
+  .text-link {
+    @apply text-[color:var(--red)];
+    @apply hover:underline;
+  }
+}
+
+.article-body {
+  font-feature-settings: "palt";
+  padding-bottom: var(--padding);
+  line-height: 1.7;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  address,
+  blockquote,
+  code,
+  pre,
+  table,
+  dl,
+  dt,
+  dd,
+  ul,
+  ol {
+    margin: 1em 0;
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  h5:first-child,
+  h6:first-child,
+  p:first-child,
+  address:first-child,
+  blockquote:first-child,
+  code:first-child,
+  pre:first-child,
+  table:first-child,
+  dl:first-child,
+  dt:first-child,
+  dd:first-child,
+  ul:first-child,
+  ol:first-child {
+    margin-top: 0;
+  }
+
+  h1:last-child,
+  h2:last-child,
+  h3:last-child,
+  h4:last-child,
+  h5:last-child,
+  h6:last-child,
+  p:last-child,
+  address:last-child,
+  blockquote:last-child,
+  code:last-child,
+  pre:last-child,
+  table:last-child,
+  dl:last-child,
+  dt:last-child,
+  dd:last-child,
+  ul:last-child,
+  ol:last-child {
+    margin-bottom: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    padding-bottom: 0.2em;
+    border-bottom: 3px solid color(grey3);
+  }
+
+  pre.wp-block-code,
+  blockquote,
+  .gist,
+  .wp-block-table,
+  .wp-block-image {
+    margin-left: calc(var(--padding) * -1) !important;
+    margin-right: calc(var(--padding) * -1) !important;
+  }
+
+  p {
+    font-size: font-size(18);
+    line-height: 2;
+  }
+
+  address,
+  blockquote {
+    padding: calc(var(--padding) / 3);
+    background: var(--grey3);
+  }
+
+  pre:not(.wp-block-code) {
+    font-family: SFMono-Regular, Menlo, Consolas, Bitstream Vera Sans Mono,
+      Courier New, Courier, BIZ UDGothic, Meiryo, monospace;
+    padding: 2px;
+    white-space: pre-wrap;
+    background: var(--grey3);
+    border-radius: 0.25rem;
+  }
+
+  ul li {
+    line-height: 1.7;
+    list-style-type: disc;
+  }
+
+  ol li {
+    line-height: 1.7;
+    list-style-type: decimal;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  table th,
+  table td {
+    padding: 0.5rem var(--padding);
+  }
+
+  table tr:nth-child(odd) {
+    background-color: var(--grey3);
+  }
+
+  pre.wp-block-code,
+  blockquote {
+    padding-left: var(--padding) !important;
+    padding-right: var(--padding) !important;
+  }
+}

@@ -3,7 +3,7 @@ import fetch from "../../libs/polyfil/fetch";
 import { WPTag } from "../../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 
-const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
+const urlBuilder = WPAPIURLFactory.init("/api/proxy/")
   .postType("tags")
   .startAt(1)
   .perPage(100);

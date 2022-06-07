@@ -1,6 +1,8 @@
+import type { WPPostType } from "./interfaces";
+
 export interface WPAPIURLBuilder {
   path(path: string): this;
-  postType(postType: "posts" | "pages"): this;
+  postType(postType: WPPostType): this;
   startAt(startAt: number): this;
   nextPage(): this;
   withEmbed(): this;
@@ -31,7 +33,7 @@ export class WPAPIURLFactory {
         return this;
       },
 
-      postType(postType: "posts" | "pages") {
+      postType(postType: WPPostType) {
         api.path = postType;
         return this;
       },

@@ -11,7 +11,7 @@ type Props = {
 
 const PostTitle: FC<Props> = ({ link, title, createdAt }) => {
   return (
-    <div className="pb-[1rem] mb-[1rem] border-b-[1px] border-b-solid border-b-[color:var(--grey3)] md:mb-[var(--padding)] md:pb-[var(--padding)]">
+    <div className="pb-[1rem] mb-[1rem] border-b-solid border-b-[1px] border-b-[color:var(--grey3)] md:mb-[var(--padding)] md:pb-[var(--padding)]">
       <h2 className="text-[1.75rem] font-bold">
         <Link href={link}>
           <a

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { GlobalFooter } from "../global_footer";
+import Script from "next/script";
 
+import { GlobalFooter } from "../global_footer";
 import { GlobalHeader } from "../global_header";
 import { Sidebar } from "../sidebar";
 
@@ -44,6 +45,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <Sidebar />
       </div>
       <GlobalFooter />
+      <Script src="http://wp.katsushi-ougi.com/wp-content/plugins/code-syntax-block/assets/prism/prism.js" />
+      <Script
+        id="mkaz-code-syntax-prism-js-js-extra"
+        dangerouslySetInnerHTML={{
+          __html: `
+var prism_settings = {"pluginUrl":"https:\/\/wp.katsushi-ougi.com\/wp-content\/plugins\/code-syntax-block\/"};
+  `,
+        }}
+      />
     </div>
   );
 };

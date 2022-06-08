@@ -181,6 +181,13 @@
     padding-left: var(--padding) !important;
     padding-right: var(--padding) !important;
   }
+
+  a {
+    color: var(--red);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 .wp-caption {

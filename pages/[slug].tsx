@@ -40,6 +40,7 @@ const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
         title={post.title.rendered}
         link={link}
         createdAt={post.date}
+        tags={post.tags}
       />
       <PostBody body={post.content.rendered} />
     </>

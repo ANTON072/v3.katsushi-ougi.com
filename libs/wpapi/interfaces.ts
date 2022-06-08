@@ -9,6 +9,8 @@ export type WPTag = {
   slug: string;
 };
 
+export type WPTag2 = Omit<WPTag, "id"> & { term_id: string };
+
 export type WPMediaDetailSize = {
   file: string;
   height: number;
@@ -46,6 +48,7 @@ export type WPPost = {
   sticky: boolean;
   type: string;
   link: string;
+  tags: WPTag2[];
   _embedded: WPPostEmbedded;
 };
 

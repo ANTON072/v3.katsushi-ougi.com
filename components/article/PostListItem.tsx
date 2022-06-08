@@ -19,6 +19,7 @@ const PostListItem: FC<Props> = ({ post }) => {
         title={post.title.rendered}
         link={link}
         createdAt={post.date}
+        tags={post.tags}
       />
       <PostBody body={post.excerpt.rendered} />
       <PostReadMore link={link} />

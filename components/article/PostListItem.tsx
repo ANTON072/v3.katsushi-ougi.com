@@ -1,6 +1,8 @@
-import Link from "next/link";
 import { FC, useMemo } from "react";
 import { WPPost } from "../../libs/wpapi/interfaces";
+import PostBody from "./PostBody";
+import PostReadMore from "./PostReadMore";
+import PostTitle from "./PostTitle";
 
 type Props = {
   post: WPPost;
@@ -13,45 +15,9 @@ const PostListItem: FC<Props> = ({ post }) => {
 
   return (
     <div className="mb-[var(--padding)] md:mb-[calc(var(--padding)*2)]">
-      <div className="pb-[1rem] mb-[1rem] border-b-[1px] border-b-solid border-b-[color:var(--grey3)] md:mb-[var(--padding)] md:pb-[var(--padding)]">
-        <h2 className="text-[1.75rem] font-bold">
-          <Link href={link}>
-            <a className="md:hover:text-[color:var(--red)]">
-              {post.title.rendered}
-            </a>
-          </Link>
-        </h2>
-        <div className="mt-[calc(var(--padding)/2)] flex md:flex-row">
-          <time className="pr-[0.5em] mr-[0.5em] border-r-[1px] border-r-solid border-r-grey3">
-            2022年05月27日
-          </time>
-          <div>
-            タグ:
-            <a href="https://katsushi-ougi.com/tag/react/" rel="tag">
-              react
-            </a>
-            ,
-            <a href="https://katsushi-ougi.com/tag/recoil/" rel="tag">
-              recoil
-            </a>
-            ,
-            <a href="https://katsushi-ougi.com/tag/svg/" rel="tag">
-              svg
-            </a>
-          </div>
-        </div>
-      </div>
-      <div
-        className="article-body"
-        dangerouslySetInnerHTML={{
-          __html: post.excerpt.rendered,
-        }}
-      />
-      <div>
-        <Link href={link}>
-          <a className="text-link">READ MORE »</a>
-        </Link>
-      </div>
+      <PostTitle title={post.title.rendered} link={link} />
+      <PostBody body={post.excerpt.rendered} />
+      <PostReadMore link={link} />
     </div>
   );
 };

@@ -1,4 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useMemo } from "react";
+import PostBody from "../components/article/PostBody";
+import PostTitle from "../components/article/PostTitle";
 import { canUseServerSideFeatures } from "../libs/next.env";
 import fetch from "../libs/polyfill/fetch";
 import { WPPost } from "../libs/wpapi/interfaces";
@@ -10,18 +13,19 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .startAt(1);
 
 const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
-  if (!post) return null;
+  const link = useMemo(() => {
+    if (!post) return "";
+    return `/${post.slug}`;
+  }, [post]);
 
   console.log("post", post);
 
+  if (!post) return null;
+
   return (
     <>
-      <div
-        className="article-body"
-        dangerouslySetInnerHTML={{
-          __html: post.content.rendered,
-        }}
-      />
+      <PostTitle title={post.title.rendered} link={link} />
+      <PostBody body={post.content.rendered} />
     </>
   );
 };

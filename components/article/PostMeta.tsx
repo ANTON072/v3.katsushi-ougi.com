@@ -14,12 +14,12 @@ const PostMeta: FC<PostMetaProps> = ({ createdAt, tags }) => {
       <time className="pr-[0.5em] mr-[0.5em] border-r-[1px] border-r-solid border-r-grey3">
         {formatPostDateToString(createdAt)}
       </time>
-      <div>
+      <div className="text-link">
         <span className="pr-[10px]">タグ:</span>
         {tags.map((tag, index) => (
           <Fragment key={tag.term_id}>
             <Link href={`/tags/${tag.slug}`}>
-              <a className="text-link">{tag.name}</a>
+              <a>{tag.name}</a>
             </Link>
             {index < tags.length - 1 && <> , </>}
           </Fragment>

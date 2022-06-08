@@ -27,6 +27,12 @@ export type WPMediaDetailSizes = {
   thumbnail: WPMediaDetailSize;
 };
 
+export type PrevNextPage = {
+  ID: number;
+  post_title: string;
+  post_name: string;
+};
+
 export type WPPost = {
   id: string;
   slug: string;
@@ -49,6 +55,8 @@ export type WPPost = {
   type: string;
   link: string;
   tags: WPTag2[];
+  prev?: PrevNextPage;
+  next?: PrevNextPage;
   _embedded: WPPostEmbedded;
 };
 

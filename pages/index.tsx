@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
-import useSWR from "swr";
 import PostList from "../components/article/PostList";
+import useHome from "../libs/hooks/useHome";
 import fetch from "../libs/polyfill/fetch";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
@@ -11,11 +11,9 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .perPage(50);
 
 const Home: NextPage<{ posts: WPPost[] }> = ({ posts: initialProps }) => {
-  const { data: posts } = useSWR<WPPost[]>(urlBuilder.getURL(), fetch, {
-    fallbackData: initialProps,
-  });
+  const { posts } = useHome(initialProps);
 
-  return <PostList posts={posts || []} />;
+  return <PostList posts={posts} />;
 };
 
 export default Home;

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import { useMount, useUnmount } from "react-use";
 
 import PostBody from "../components/article/PostBody";
+import PostNavigation from "../components/article/PostNavigation";
 import PostTitle from "../components/article/PostTitle";
 import { canUseServerSideFeatures } from "../libs/next.env";
 import fetch from "../libs/polyfill/fetch";
@@ -40,8 +41,10 @@ const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
         title={post.title.rendered}
         link={link}
         createdAt={post.date}
+        tags={post.tags}
       />
       <PostBody body={post.content.rendered} />
+      <PostNavigation prev={post.prev} next={post.next} />
     </>
   );
 };

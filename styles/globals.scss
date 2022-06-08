@@ -42,8 +42,10 @@
   }
 
   .text-link {
-    @apply text-[color:var(--red)];
-    @apply hover:underline;
+    a {
+      @apply text-[color:var(--red)];
+      @apply hover:underline;
+    }
   }
 }
 

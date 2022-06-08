@@ -7,9 +7,9 @@ type Props = {
 
 const PostReadMore: FC<Props> = ({ link }) => {
   return (
-    <div>
+    <div className="text-link">
       <Link href={link}>
-        <a className="text-link">READ MORE »</a>
+        <a>READ MORE »</a>
       </Link>
     </div>
   );

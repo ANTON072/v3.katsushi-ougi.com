@@ -1,3 +1,5 @@
+import { default as dayjs } from "dayjs";
+
 import { canUseServerSideFeatures } from "./next.env";
 import { WPPost } from "./wpapi/interfaces";
 import { WPAPIURLBuilder } from "./wpapi/UrlBuilder";
@@ -57,4 +59,16 @@ const listAllPosts = async (
   }
 };
 
-export { uniqWPPosts, listAllPosts };
+/**
+ * ISO規格のdatetimeをフォーマット化
+ */
+const formatPostDateToString = (
+  datetime?: WPPost["date"],
+  format = "YYYY年MM月DD日"
+) => {
+  if (!datetime) return "";
+
+  return dayjs(datetime).format(format);
+};
+
+export { uniqWPPosts, listAllPosts, formatPostDateToString };

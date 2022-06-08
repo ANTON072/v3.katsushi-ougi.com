@@ -1,10 +1,16 @@
 import { FC } from "react";
+import { WPPost } from "../../libs/wpapi/interfaces";
+import { formatPostDateToString } from "../../libs/wpUtils";
 
-const PostMeta: FC = () => {
+export type PostMetaProps = {
+  createdAt?: WPPost["date"];
+};
+
+const PostMeta: FC<PostMetaProps> = ({ createdAt }) => {
   return (
     <div className="mt-[calc(var(--padding)/2)] flex md:flex-row">
       <time className="pr-[0.5em] mr-[0.5em] border-r-[1px] border-r-solid border-r-grey3">
-        2022年05月27日
+        {formatPostDateToString(createdAt)}
       </time>
       <div>
         タグ:

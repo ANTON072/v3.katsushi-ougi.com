@@ -24,7 +24,11 @@ const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
 
   return (
     <>
-      <PostTitle title={post.title.rendered} link={link} />
+      <PostTitle
+        title={post.title.rendered}
+        link={link}
+        createdAt={post.date}
+      />
       <PostBody body={post.content.rendered} />
     </>
   );

@@ -15,7 +15,11 @@ const PostListItem: FC<Props> = ({ post }) => {
 
   return (
     <div className="mb-[var(--padding)] md:mb-[calc(var(--padding)*2)]">
-      <PostTitle title={post.title.rendered} link={link} />
+      <PostTitle
+        title={post.title.rendered}
+        link={link}
+        createdAt={post.date}
+      />
       <PostBody body={post.excerpt.rendered} />
       <PostReadMore link={link} />
     </div>

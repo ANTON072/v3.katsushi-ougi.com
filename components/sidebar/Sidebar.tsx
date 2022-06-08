@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import About from "./About";
 import Topics from "./Topics";
-import useTags from "./useTags";
+import useTags from "../../libs/hooks/useTags";
 
 const Sidebar = () => {
   const { tags } = useTags();

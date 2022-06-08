@@ -60,6 +60,8 @@ const listAllPosts = async (
 const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
   if (!post) return null;
 
+  console.log("post", post);
+
   return (
     <>
       <div

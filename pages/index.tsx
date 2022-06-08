@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import useSWR from "swr";
-import PostList from "../domain/article/PostList";
+import PostList from "../components/article/PostList";
 import fetch from "../libs/polyfill/fetch";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";

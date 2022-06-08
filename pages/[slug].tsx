@@ -1,9 +1,12 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useMemo } from "react";
+import { useMount, useUnmount } from "react-use";
+
 import PostBody from "../components/article/PostBody";
 import PostTitle from "../components/article/PostTitle";
 import { canUseServerSideFeatures } from "../libs/next.env";
 import fetch from "../libs/polyfill/fetch";
+import { importScript } from "../libs/utils";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
 import { listAllPosts } from "../libs/wpUtils";
@@ -18,7 +21,16 @@ const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
     return `/${post.slug}`;
   }, [post]);
 
-  console.log("post", post);
+  useMount(() => {
+    importScript("/prism.js", "prism");
+  });
+
+  useUnmount(() => {
+    const s = document.querySelector("#prism");
+    if (s) {
+      document.head.removeChild(s);
+    }
+  });
 
   if (!post) return null;
 

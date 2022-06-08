@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Script from "next/script";
 
 import { GlobalFooter } from "../global_footer";
@@ -45,7 +45,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <Sidebar />
       </div>
       <GlobalFooter />
-      <Script src="http://wp.katsushi-ougi.com/wp-content/plugins/code-syntax-block/assets/prism/prism.js" />
+      {/* <Script src="/prism.js" /> */}
       <Script
         id="mkaz-code-syntax-prism-js-js-extra"
         dangerouslySetInnerHTML={{

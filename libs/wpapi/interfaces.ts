@@ -14,7 +14,7 @@ export type WPMediaDetailSize = {
   height: number;
   mime_type: string;
   source_url: string;
-  witdh: number;
+  width: number;
 };
 
 export type WPMediaDetailSizes = {

@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import fetch from "../../libs/polyfill/fetch";
-import { WPTag } from "../../libs/wpapi/interfaces";
-import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
+import fetch from "../polyfill/fetch";
+import { WPTag } from "../wpapi/interfaces";
+import { WPAPIURLFactory } from "../wpapi/UrlBuilder";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")

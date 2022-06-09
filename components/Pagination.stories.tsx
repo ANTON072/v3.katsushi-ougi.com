@@ -14,3 +14,9 @@ Default.args = {
   totalPages: 5,
   current: 1,
 };
+
+export const Long = Template.bind({});
+Long.args = {
+  totalPages: 10,
+  current: 1,
+};

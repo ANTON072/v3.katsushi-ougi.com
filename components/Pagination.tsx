@@ -7,10 +7,14 @@ export type PaginationProps = {
 };
 
 const PaginationItem: FC<{
-  label: number;
+  label: number | string;
   current: number;
   onClick: () => void;
 }> = ({ label, current, onClick }) => {
+  if (typeof label === "string") {
+    return <div className="min-w-[32px] mx-[3px] text-center">{label}</div>;
+  }
+
   return (
     <button
       type="button"
@@ -67,8 +71,20 @@ const PrevNext: FC<{
   );
 };
 
+const DIVIDE_NUMBER = 5;
+
 const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
+  const pageList = [...Array(totalPages)].map((_, i) => i + 1);
+
   const [current_, setCurrent] = useState(current);
+
+  const formatPageList = useMemo(() => {
+    const list = pageList.slice(0, DIVIDE_NUMBER);
+
+    return [...list, "…", totalPages];
+  }, [pageList, totalPages]);
+
+  console.log("formatPageList", formatPageList);
 
   return (
     <div className="flex font-en">
@@ -78,15 +94,17 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
         totalPages={totalPages}
         onClick={() => setCurrent(current_ - 1)}
       />
-      {[...Array(totalPages)].map((n, index) => {
-        const label = index + 1;
+      {formatPageList.map((n) => {
+        const label = n;
         return (
           <PaginationItem
-            key={index}
+            key={n}
             label={label}
             current={current_}
             onClick={() => {
-              setCurrent(label);
+              if (typeof n !== "string") {
+                setCurrent(n);
+              }
             }}
           />
         );

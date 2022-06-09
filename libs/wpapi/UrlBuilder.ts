@@ -1,3 +1,4 @@
+import { PER_PAGE_NUM } from "../../config";
 import type { WPPostType } from "./interfaces";
 
 export interface WPAPIURLBuilder {
@@ -21,7 +22,7 @@ export class WPAPIURLFactory {
       queryString: {
         embed: false,
         search: "",
-        perPage: 20,
+        perPage: PER_PAGE_NUM,
         startAt: 1,
         custom: "",
         slug: "",

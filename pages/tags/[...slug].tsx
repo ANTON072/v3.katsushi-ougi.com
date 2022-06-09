@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import unfetch from "isomorphic-unfetch";
+
 import PostList from "../../components/article/PostList";
 import { PER_PAGE_NUM } from "../../config";
 import { canUseServerSideFeatures } from "../../libs/next.env";
-import fetch from "../../libs/polyfill/fetch";
 import { WPPost } from "../../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 import { listAllPosts, listAllTags } from "../../libs/wpUtils";
@@ -11,11 +12,18 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")
   .startAt(1);
 
-const TagListPage: NextPage<{ posts: WPPost[]; name: string }> = ({
-  posts,
-  name,
-}) => {
-  if (!posts) return null;
+const postsUrlBuilder = WPAPIURLFactory.init(
+  process.env.WORDPRESS_URL
+).postType("posts");
+
+const TagListPage: NextPage<{
+  posts: WPPost[];
+  name: string;
+  page: number;
+  totalPages: number;
+}> = ({ posts, name, page, totalPages }) => {
+  console.log("page", page);
+  console.log("totalPages", totalPages);
 
   return (
     <div>
@@ -30,12 +38,7 @@ export default TagListPage;
 export const getStaticPaths: GetStaticPaths = async () => {
   const tags = await listAllTags(urlBuilder);
 
-  const postsUrlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
-    .postType("posts")
-    .startAt(1)
-    .perPage(100);
-
-  const posts = await listAllPosts(postsUrlBuilder);
+  const posts = await listAllPosts(postsUrlBuilder.startAt(1));
 
   const pageList = [];
 
@@ -84,24 +87,34 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const slug = params.slug[0];
+
   const page = parseInt(params.slug[1], 10) || 1;
 
   const tags = await listAllTags(urlBuilder);
 
-  const targetTag = tags.filter((tag) => tag.slug === slug);
+  const targetTag = tags.find((tag) => tag.slug === slug);
 
-  const postsUrlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
-    .postType("posts")
-    .perPage(PER_PAGE_NUM)
-    .startAt(page)
-    .tags([targetTag[0].id]);
+  if (!targetTag) {
+    return {
+      props: {
+        posts: [],
+      },
+    };
+  }
 
-  const posts = await fetch<WPPost[]>(postsUrlBuilder.getURL());
+  const res = await unfetch(
+    postsUrlBuilder.startAt(page).tags([targetTag.id]).getURL()
+  );
+  const headers = res.headers;
+  const posts = await res.json();
+  const totalPages = headers.get("x-wp-totalpages");
 
   return {
     props: {
-      name: targetTag[0].name,
+      name: targetTag.name,
       posts,
+      totalPages: totalPages ? parseInt(totalPages[0], 10) : 1,
+      page,
     },
   };
 };

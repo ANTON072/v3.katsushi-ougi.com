@@ -15,6 +15,8 @@ const TagListPage: NextPage<{ posts: WPPost[]; name: string }> = ({
   posts,
   name,
 }) => {
+  if (!posts) return null;
+
   return (
     <div>
       <h2 className="text-[35px] mb-[1em]">Tag: {name}</h2>
@@ -28,13 +30,6 @@ export default TagListPage;
 export const getStaticPaths: GetStaticPaths = async () => {
   const tags = await listAllTags(urlBuilder);
 
-  const firstList = tags.map((tag) => ({
-    params: {
-      id: `${tag.id}`,
-      slug: [tag.slug],
-    },
-  }));
-
   const postsUrlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
     .postType("posts")
     .startAt(1)
@@ -42,20 +37,39 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const posts = await listAllPosts(postsUrlBuilder);
 
+  const pageList = [];
+
   for (const tag of tags) {
     const targetPosts = posts.filter((post) => {
       const tagIds = post.tags.map((t) => t.term_id);
 
       return tagIds.includes(tag.id);
     });
-    console.log("-----------------------------");
-    console.log("tag", tag.id);
-    // ページ数
-    console.log("pages", Math.ceil(targetPosts.length / PER_PAGE_NUM));
+
+    // タグページのページ数
+    const pages = Math.ceil(targetPosts.length / PER_PAGE_NUM);
+
+    // /tags/[:tag_slug]/[:page]のページを生成
+    for (let i = 0; i < pages; i++) {
+      pageList.push({
+        params: {
+          id: `${tag.id}`,
+          slug: [tag.slug, `${i + 1}`],
+        },
+      });
+    }
   }
 
+  // /tags/[:tag_slug]のページを生成
+  const topPageList = tags.map((tag) => ({
+    params: {
+      id: `${tag.id}`,
+      slug: [tag.slug],
+    },
+  }));
+
   return {
-    paths: firstList,
+    paths: [...topPageList, ...pageList],
     fallback: canUseServerSideFeatures() ? "blocking" : false,
   };
 };
@@ -70,6 +84,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const slug = params.slug[0];
+  const page = parseInt(params.slug[1], 10) || 1;
 
   const tags = await listAllTags(urlBuilder);
 
@@ -78,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const postsUrlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
     .postType("posts")
     .perPage(PER_PAGE_NUM)
-    .startAt(1)
+    .startAt(page)
     .tags([targetTag[0].id]);
 
   const posts = await fetch<WPPost[]>(postsUrlBuilder.getURL());

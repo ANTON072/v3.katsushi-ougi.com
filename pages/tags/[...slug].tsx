@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import unfetch from "isomorphic-unfetch";
 
-import PostList from "../../components/article/PostList";
+import { PostList } from "../../components/article";
 import { PER_PAGE_NUM } from "../../config";
 import { canUseServerSideFeatures } from "../../libs/next.env";
 import { WPPost } from "../../libs/wpapi/interfaces";

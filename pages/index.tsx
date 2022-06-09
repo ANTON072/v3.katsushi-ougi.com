@@ -1,8 +1,9 @@
 import type { GetStaticProps, NextPage } from "next";
-import PostList from "../components/article/PostList";
+
 import fetch from "../libs/polyfill/fetch";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
+import { PostList } from "../components/article";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")

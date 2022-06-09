@@ -1,5 +1,4 @@
-import { title } from "process";
-import GlobalHeader from "./GlobalHeader";
+import GlobalHeader from ".";
 
 export default {
   title: "global_header/GlobalHeader",

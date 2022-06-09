@@ -8,7 +8,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     {
-      name: "@storybook/addon-postcss",
+      name: "storybook-addon-sass-postcss",
       options: {
         postcssLoaderOptions: {
           implementation: require("postcss"),

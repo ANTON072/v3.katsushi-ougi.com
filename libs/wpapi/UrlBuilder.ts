@@ -9,6 +9,7 @@ export interface WPAPIURLBuilder {
   perPage(perPage: number): this;
   search(search: string): this;
   slug(slug: string): this;
+  tags(tagIds: number[]): this;
   query(query: string): this;
   getURL(): string;
 }
@@ -24,6 +25,7 @@ export class WPAPIURLFactory {
         startAt: 1,
         custom: "",
         slug: "",
+        tags: "",
       },
     };
 
@@ -68,6 +70,11 @@ export class WPAPIURLFactory {
         return this;
       },
 
+      tags(tagIds: number[]) {
+        api.queryString.tags = tagIds.join(",");
+        return this;
+      },
+
       query(query: string) {
         api.queryString.custom = query;
         return this;
@@ -83,6 +90,7 @@ export class WPAPIURLFactory {
             if (key === "search" && !!value)
               prevQueries.push(`search=${value}`);
             if (key === "slug" && !!value) prevQueries.push(`slug=${value}`);
+            if (key === "tags" && !!value) prevQueries.push(`tags=${value}`);
             if (key === "perPage") prevQueries.push(`per_page=${value}`);
             if (key === "startAt") prevQueries.push(`page=${value}`);
             if (key === "custom" && !!value) prevQueries.push(value);

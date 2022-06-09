@@ -53,6 +53,7 @@ export default SinglePost;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await listAllPosts(urlBuilder);
+
   return {
     paths: posts.map((post) => ({
       params: {

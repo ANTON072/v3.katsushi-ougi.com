@@ -9,7 +9,7 @@ export type WPTag = {
   slug: string;
 };
 
-export type WPTag2 = Omit<WPTag, "id"> & { term_id: string };
+export type WPTag2 = Omit<WPTag, "id"> & { term_id: number };
 
 export type WPMediaDetailSize = {
   file: string;

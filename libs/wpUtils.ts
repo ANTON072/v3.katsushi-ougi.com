@@ -1,7 +1,7 @@
 import { default as dayjs } from "dayjs";
 
 import { canUseServerSideFeatures } from "./next.env";
-import { WPPost } from "./wpapi/interfaces";
+import { WPPost, WPTag } from "./wpapi/interfaces";
 import { WPAPIURLBuilder } from "./wpapi/UrlBuilder";
 import fetch from "./polyfill/fetch";
 
@@ -26,6 +26,7 @@ const listAllPosts = async (
   posts: WPPost[] = []
 ): Promise<WPPost[]> => {
   const perPage = 20;
+
   try {
     const url = APIURLBuilder.perPage(20).getURL();
     const response = await fetch(url);
@@ -41,7 +42,11 @@ const listAllPosts = async (
     // 記事の重複をカットする
     const mergedPosts = uniqWPPosts([...posts, ...response]);
 
-    if (canUseServerSideFeatures() || response.length < perPage) {
+    // if (canUseServerSideFeatures() || response.length < perPage) {
+    //   return mergedPosts;
+    // }
+
+    if (response.length < perPage) {
       return mergedPosts;
     }
 
@@ -60,6 +65,40 @@ const listAllPosts = async (
 };
 
 /**
+ * 再帰して全タグを取得
+ */
+const listAllTags = async (
+  APIURLBuilder: WPAPIURLBuilder,
+  tags: WPTag[] = []
+): Promise<WPTag[]> => {
+  const perPage = 20;
+  try {
+    const url = APIURLBuilder.perPage(20).getURL();
+    const response = await fetch(url);
+
+    // エラーレスポンスの場合はレスポンスをスローして中断
+    if (
+      response instanceof Error ||
+      (response.data && response.data.status && response.data.status > 399)
+    ) {
+      throw response;
+    }
+
+    const mergedTags = [...tags, ...response];
+
+    if (canUseServerSideFeatures() || response.length < perPage) {
+      return mergedTags;
+    }
+
+    APIURLBuilder.nextPage();
+
+    return listAllTags(APIURLBuilder, mergedTags);
+  } catch (error) {
+    throw error;
+  }
+};
+
+/**
  * ISO規格のdatetimeをフォーマット化
  */
 const formatPostDateToString = (
@@ -71,4 +110,4 @@ const formatPostDateToString = (
   return dayjs(datetime).format(format);
 };
 
-export { uniqWPPosts, listAllPosts, formatPostDateToString };
+export { uniqWPPosts, listAllPosts, formatPostDateToString, listAllTags };

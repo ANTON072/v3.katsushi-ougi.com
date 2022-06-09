@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useMount, useUnmount } from "react-use";
+import { useRouter } from "next/router";
 
 import PostBody from "../components/article/PostBody";
 import PostNavigation from "../components/article/PostNavigation";
@@ -17,21 +18,21 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .startAt(1);
 
 const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
+  const router = useRouter();
+
   const link = useMemo(() => {
     if (!post) return "";
     return `/${post.slug}`;
   }, [post]);
 
-  useMount(() => {
-    importScript("/prism.js", "prism");
-  });
-
-  useUnmount(() => {
+  useEffect(() => {
     const s = document.querySelector("#prism");
     if (s) {
       document.head.removeChild(s);
     }
-  });
+
+    importScript("/prism.js", "prism");
+  }, [router.asPath]);
 
   if (!post) return null;
 
@@ -53,6 +54,7 @@ export default SinglePost;
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await listAllPosts(urlBuilder);
+
   return {
     paths: posts.map((post) => ({
       params: {

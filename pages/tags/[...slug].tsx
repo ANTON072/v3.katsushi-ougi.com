@@ -30,7 +30,11 @@ const TagListPage: NextPage<{
   const handleChangePage = useCallback(
     (page: number) => {
       const routes = router.asPath.split("/").filter((p) => !!p);
-      router.push(`/tags/${routes[1]}/${page}`);
+      if (page === 1) {
+        router.push(`/tags/${routes[1]}/`);
+      } else {
+        router.push(`/tags/${routes[1]}/${page}`);
+      }
     },
     [router]
   );
@@ -73,12 +77,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     // /tags/[:tag_slug]/[:page]のページを生成
     for (let i = 0; i < pages; i++) {
-      pageList.push({
-        params: {
-          id: `${tag.id}`,
-          slug: [tag.slug, `${i + 1}`],
-        },
-      });
+      if (i > 0) {
+        pageList.push({
+          params: {
+            id: `${tag.id}`,
+            slug: [tag.slug, `${i + 1}`],
+          },
+        });
+      }
     }
   }
 
@@ -125,9 +131,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     postsUrlBuilder.startAt(page).tags([targetTag.id]).getURL()
   );
   const headers = res.headers;
-  console.log("headers", headers);
   const posts = await res.json();
   const totalPages = headers.get("x-wp-totalpages");
+  console.log("targetTag.id ----->", targetTag.id);
+  console.log("totalPages ----->", totalPages);
+  console.log("=====================================");
 
   return {
     props: {

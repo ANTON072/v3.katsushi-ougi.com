@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 
 export type PaginationProps = {
@@ -80,6 +80,10 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current, onChange }) => {
   const pageList = [...Array(totalPages)].map((_, i) => i + 1);
 
   const [current_, setCurrent] = useState(current);
+
+  useEffect(() => {
+    setCurrent(current);
+  }, [current]);
 
   const formatPageList = useMemo(() => {
     if (pageList.length <= MAX_LIST_LENGTH) return pageList;

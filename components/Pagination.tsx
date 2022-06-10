@@ -71,20 +71,41 @@ const PrevNext: FC<{
   );
 };
 
-const DIVIDE_NUMBER = 5;
+const MAX_PAGE_RANGE = 4;
+const MIN_PAGE_RANGE = 3;
 
 const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
   const pageList = [...Array(totalPages)].map((_, i) => i + 1);
 
   const [current_, setCurrent] = useState(current);
 
+  // 必ず配列は7となる
   const formatPageList = useMemo(() => {
-    const list = pageList.slice(0, DIVIDE_NUMBER);
+    let rangeStart = current_ - 2;
+    let rangeEnd = rangeStart + MAX_PAGE_RANGE - 1;
 
-    return [...list, "…", totalPages];
-  }, [pageList, totalPages]);
+    if (current_ <= MAX_PAGE_RANGE) {
+      rangeStart = 0;
+      rangeEnd = MAX_PAGE_RANGE + 1;
+    }
 
-  console.log("formatPageList", formatPageList);
+    if (current_ >= totalPages - MIN_PAGE_RANGE) {
+      rangeStart = totalPages - MAX_PAGE_RANGE - 1;
+      rangeEnd = totalPages;
+    }
+
+    let list: (number | string)[] = pageList.slice(rangeStart, rangeEnd);
+
+    if (list[0] === 1) {
+      list = [...list, ...["…", totalPages]];
+    } else if (list[list.length - 1] === totalPages) {
+      list = [...[1, "…"], ...list];
+    } else {
+      list = [...[1, "…"], ...list, ...["…", totalPages]];
+    }
+
+    return list;
+  }, [current_, totalPages, pageList]);
 
   return (
     <div className="flex font-en">
@@ -94,11 +115,11 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
         totalPages={totalPages}
         onClick={() => setCurrent(current_ - 1)}
       />
-      {formatPageList.map((n) => {
+      {formatPageList.map((n, index) => {
         const label = n;
         return (
           <PaginationItem
-            key={n}
+            key={index}
             label={label}
             current={current_}
             onClick={() => {

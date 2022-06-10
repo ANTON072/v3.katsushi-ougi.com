@@ -24,8 +24,7 @@ const TagListPage: NextPage<{
   name: string;
   page: number;
   totalPages: number;
-  tagId: number;
-}> = ({ posts, name, page, totalPages, tagId }) => {
+}> = ({ posts, name, page, totalPages }) => {
   const router = useRouter();
 
   const handleChangePage = useCallback(
@@ -35,6 +34,8 @@ const TagListPage: NextPage<{
     },
     [router]
   );
+
+  console.log("totalPages", totalPages);
 
   return (
     <div>
@@ -132,7 +133,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       name: targetTag.name,
-      tagId: targetTag.id,
       posts,
       totalPages: totalPages ? parseInt(totalPages[0], 10) : 1,
       page,

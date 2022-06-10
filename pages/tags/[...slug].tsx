@@ -10,8 +10,6 @@ import { listAllPosts, listAllTags } from "../../libs/wpUtils";
 import Pagination from "../../components/Pagination";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
-import useSWR from "swr";
-import fetch from "../../libs/polyfill/fetch";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")
@@ -27,16 +25,8 @@ const TagListPage: NextPage<{
   page: number;
   totalPages: number;
   tagId: number;
-}> = ({ posts: fallbackData, name, page, totalPages, tagId }) => {
+}> = ({ posts, name, page, totalPages, tagId }) => {
   const router = useRouter();
-
-  const { data: posts } = useSWR(
-    postsUrlBuilder.tags([tagId]).startAt(page).getURL(),
-    fetch<WPPost[]>,
-    {
-      fallbackData,
-    }
-  );
 
   const handleChangePage = useCallback(
     (page: number) => {

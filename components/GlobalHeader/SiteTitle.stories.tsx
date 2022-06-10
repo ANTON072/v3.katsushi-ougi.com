@@ -1,7 +1,7 @@
 import SiteTitle from "./SiteTitle";
 
 export default {
-  title: "global_header/SiteTitle",
+  title: "GlobalHeader/SiteTitle",
   component: SiteTitle,
 };
 

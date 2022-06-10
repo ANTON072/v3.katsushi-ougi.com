@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import Script from "next/script";
 
-import { GlobalFooter } from "../global_footer";
-import { GlobalHeader } from "../global_header";
-import { Sidebar } from "../sidebar";
+import GlobalFooter from "./GlobalFooter";
+import GlobalHeader from "./GlobalHeader";
+import Sidebar from "./Sidebar";
 
 type LayoutProps = {
   children: React.ReactNode;

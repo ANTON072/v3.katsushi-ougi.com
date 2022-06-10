@@ -1,11 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useEffect, useMemo } from "react";
-import { useMount, useUnmount } from "react-use";
 import { useRouter } from "next/router";
 
-import PostBody from "../components/article/PostBody";
-import PostNavigation from "../components/article/PostNavigation";
-import PostTitle from "../components/article/PostTitle";
+import { PostBody, PostNavigation, PostTitle } from "../components/article";
 import { canUseServerSideFeatures } from "../libs/next.env";
 import fetch from "../libs/polyfill/fetch";
 import { importScript } from "../libs/utils";

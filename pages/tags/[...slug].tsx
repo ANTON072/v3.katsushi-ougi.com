@@ -1,12 +1,17 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import unfetch from "isomorphic-unfetch";
 
-import PostList from "../../components/article/PostList";
+import { PostList } from "../../components/article";
 import { PER_PAGE_NUM } from "../../config";
 import { canUseServerSideFeatures } from "../../libs/next.env";
 import { WPPost } from "../../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 import { listAllPosts, listAllTags } from "../../libs/wpUtils";
+import Pagination from "../../components/Pagination";
+import { useCallback } from "react";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import fetch from "../../libs/polyfill/fetch";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")
@@ -21,14 +26,39 @@ const TagListPage: NextPage<{
   name: string;
   page: number;
   totalPages: number;
-}> = ({ posts, name, page, totalPages }) => {
-  console.log("page", page);
-  console.log("totalPages", totalPages);
+  tagId: number;
+}> = ({ posts: fallbackData, name, page, totalPages, tagId }) => {
+  const router = useRouter();
+
+  const { data: posts } = useSWR(
+    postsUrlBuilder.tags([tagId]).startAt(page).getURL(),
+    fetch<WPPost[]>,
+    {
+      fallbackData,
+    }
+  );
+
+  const handleChangePage = useCallback(
+    (page: number) => {
+      const routes = router.asPath.split("/").filter((p) => !!p);
+      router.push(`/tags/${routes[1]}/${page}`);
+    },
+    [router]
+  );
 
   return (
     <div>
       <h2 className="text-[35px] mb-[1em]">Tag: {name}</h2>
-      <PostList posts={posts} />
+      <PostList posts={posts || []} />
+      {totalPages > 1 && (
+        <div className="flex justify-center">
+          <Pagination
+            totalPages={totalPages}
+            current={page}
+            onChange={handleChangePage}
+          />
+        </div>
+      )}
     </div>
   );
 };
@@ -112,6 +142,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       name: targetTag.name,
+      tagId: targetTag.id,
       posts,
       totalPages: totalPages ? parseInt(totalPages[0], 10) : 1,
       page,

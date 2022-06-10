@@ -35,8 +35,6 @@ const TagListPage: NextPage<{
     [router]
   );
 
-  console.log("totalPages", totalPages);
-
   return (
     <div>
       <h2 className="text-[35px] mb-[1em]">Tag: {name}</h2>

@@ -4,6 +4,7 @@ import clsx from "clsx";
 export type PaginationProps = {
   totalPages: number;
   current: number;
+  onChange: (page: number) => void;
 };
 
 const PaginationItem: FC<{
@@ -75,12 +76,11 @@ const MAX_LIST_LENGTH = 7;
 const MAX_PAGE_RANGE = 4;
 const MIN_PAGE_RANGE = 3;
 
-const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
+const Pagination: FC<PaginationProps> = ({ totalPages, current, onChange }) => {
   const pageList = [...Array(totalPages)].map((_, i) => i + 1);
 
   const [current_, setCurrent] = useState(current);
 
-  // 必ず配列は7となる
   const formatPageList = useMemo(() => {
     if (pageList.length <= MAX_LIST_LENGTH) return pageList;
 
@@ -116,7 +116,10 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
         label="prev"
         current={current_}
         totalPages={totalPages}
-        onClick={() => setCurrent(current_ - 1)}
+        onClick={() => {
+          setCurrent(current_ - 1);
+          onChange(current_ - 1);
+        }}
       />
       {formatPageList.map((n, index) => {
         const label = n;
@@ -128,6 +131,7 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
             onClick={() => {
               if (typeof n !== "string") {
                 setCurrent(n);
+                onChange(n);
               }
             }}
           />
@@ -137,7 +141,10 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
         label="next"
         current={current_}
         totalPages={totalPages}
-        onClick={() => setCurrent(current_ + 1)}
+        onClick={() => {
+          setCurrent(current_ + 1);
+          onChange(current_ + 1);
+        }}
       />
     </div>
   );

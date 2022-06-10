@@ -7,6 +7,9 @@ import { canUseServerSideFeatures } from "../../libs/next.env";
 import { WPPost } from "../../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 import { listAllPosts, listAllTags } from "../../libs/wpUtils";
+import Pagination from "../../components/Pagination";
+import { useCallback } from "react";
+import { useRouter } from "next/router";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")
@@ -22,13 +25,29 @@ const TagListPage: NextPage<{
   page: number;
   totalPages: number;
 }> = ({ posts, name, page, totalPages }) => {
-  console.log("page", page);
-  console.log("totalPages", totalPages);
+  const router = useRouter();
+
+  const handleChangePage = useCallback(
+    (page: number) => {
+      const routes = router.asPath.split("/").filter((p) => !!p);
+      router.push(`/tags/${routes[1]}/${page}`);
+    },
+    [router]
+  );
 
   return (
     <div>
       <h2 className="text-[35px] mb-[1em]">Tag: {name}</h2>
       <PostList posts={posts} />
+      {totalPages > 1 && (
+        <div className="flex justify-center">
+          <Pagination
+            totalPages={totalPages}
+            current={page}
+            onChange={handleChangePage}
+          />
+        </div>
+      )}
     </div>
   );
 };

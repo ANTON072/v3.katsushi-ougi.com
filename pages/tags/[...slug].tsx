@@ -125,6 +125,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     postsUrlBuilder.startAt(page).tags([targetTag.id]).getURL()
   );
   const headers = res.headers;
+  console.log("headers", headers);
   const posts = await res.json();
   const totalPages = headers.get("x-wp-totalpages");
 

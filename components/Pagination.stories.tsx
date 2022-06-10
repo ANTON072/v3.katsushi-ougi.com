@@ -20,3 +20,21 @@ Long.args = {
   totalPages: 10,
   current: 1,
 };
+
+export const Long2 = Template.bind({});
+Long2.args = {
+  totalPages: 20,
+  current: 1,
+};
+
+export const Short = Template.bind({});
+Short.args = {
+  totalPages: 7,
+  current: 1,
+};
+
+export const Short2 = Template.bind({});
+Short2.args = {
+  totalPages: 8,
+  current: 1,
+};

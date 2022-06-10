@@ -71,6 +71,7 @@ const PrevNext: FC<{
   );
 };
 
+const MAX_LIST_LENGTH = 7;
 const MAX_PAGE_RANGE = 4;
 const MIN_PAGE_RANGE = 3;
 
@@ -81,6 +82,8 @@ const Pagination: FC<PaginationProps> = ({ totalPages, current }) => {
 
   // 必ず配列は7となる
   const formatPageList = useMemo(() => {
+    if (pageList.length <= MAX_LIST_LENGTH) return pageList;
+
     let rangeStart = current_ - 2;
     let rangeEnd = rangeStart + MAX_PAGE_RANGE - 1;
 

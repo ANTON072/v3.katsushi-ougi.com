@@ -11,9 +11,9 @@ import { NextSeo } from "next-seo";
 import { SITE_TITLE } from "../../config";
 import fetch from "../../libs/polyfill/fetch";
 
-const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
-  .postType("posts")
-  .startAt(1);
+const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL).postType(
+  "posts"
+);
 
 const DateArchivePage: NextPage<{
   posts: WPPost[];
@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const before = `${nextMonth}-01T00:00:00`;
 
   const posts = await fetch(
-    urlBuilder.perPage(100).after(after).before(before).getURL()
+    urlBuilder.startAt(1).perPage(100).after(after).before(before).getURL()
   );
 
   console.log("posts", urlBuilder.getURL());

@@ -1,8 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import unfetch from "isomorphic-unfetch";
+import { NextSeo } from "next-seo";
 
 import { PostList } from "../../components/article";
-import { PER_PAGE_NUM } from "../../config";
+import { PER_PAGE_NUM, SITE_TITLE } from "../../config";
 import { canUseServerSideFeatures } from "../../libs/next.env";
 import { WPPost } from "../../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
@@ -42,6 +43,10 @@ const TagListPage: NextPage<{
 
   return (
     <div>
+      <NextSeo
+        title={`TAG ${name} - ${SITE_TITLE}`}
+        description={`タグ${name}の一覧ページです`}
+      />
       <Heading title={`Tag: ${name}`} />
       <PostList posts={posts || []} />
       {totalPages > 1 && (

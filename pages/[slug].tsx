@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 import { PostBody, PostNavigation, PostTitle } from "../components/article";
 import { canUseServerSideFeatures } from "../libs/next.env";
@@ -9,6 +10,7 @@ import { importScript } from "../libs/utils";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
 import { listAllPosts } from "../libs/wpUtils";
+import { SITE_TITLE } from "../config";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -35,6 +37,10 @@ const SinglePost: NextPage<{ post: WPPost | null }> = ({ post }) => {
 
   return (
     <>
+      <NextSeo
+        title={`${post.title.rendered} - ${SITE_TITLE}`}
+        description={`${post.excerpt.rendered}`}
+      />
       <PostTitle
         title={post.title.rendered}
         link={link}

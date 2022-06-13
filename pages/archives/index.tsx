@@ -4,6 +4,8 @@ import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 import { listAllPosts } from "../../libs/wpUtils";
 import { default as dayjs } from "dayjs";
 import Link from "next/link";
+import { NextSeo } from "next-seo";
+import { SITE_TITLE } from "../../config";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -17,6 +19,10 @@ type DateParams = {
 const ArchivesPage: NextPage<{ dates: DateParams[] }> = ({ dates }) => {
   return (
     <>
+      <NextSeo
+        title={`ARCHIVES - ${SITE_TITLE}`}
+        description="アーカイブ一覧ページです"
+      />
       <Heading title="Archives" />
       <ul className="flex flex-wrap m-[-15px]">
         {dates.map((d) => (

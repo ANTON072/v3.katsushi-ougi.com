@@ -7,6 +7,8 @@ import { listAllPosts } from "../../libs/wpUtils";
 import { GetStaticProps, NextPage } from "next";
 import { PostList } from "../../components/article";
 import Heading from "../../components/Heading";
+import { NextSeo } from "next-seo";
+import { SITE_TITLE } from "../../config";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -18,6 +20,10 @@ const DateArchivePage: NextPage<{
 }> = ({ date, posts }) => {
   return (
     <div>
+      <NextSeo
+        title={`ARCHIVES: ${date} - ${SITE_TITLE}`}
+        description={`${date}のアーカイブ一覧ページです`}
+      />
       <Heading title={`ARCHIVES: ${date}`} />
       <PostList posts={posts || []} />
     </div>

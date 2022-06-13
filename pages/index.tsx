@@ -4,6 +4,8 @@ import fetch from "../libs/polyfill/fetch";
 import { WPPost } from "../libs/wpapi/interfaces";
 import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
 import { PostList } from "../components/article";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../config";
+import { NextSeo } from "next-seo";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -11,7 +13,12 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .perPage(50);
 
 const Home: NextPage<{ posts: WPPost[] }> = ({ posts }) => {
-  return <PostList posts={posts} />;
+  return (
+    <>
+      <NextSeo title={`${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+      <PostList posts={posts} />
+    </>
+  );
 };
 
 export default Home;

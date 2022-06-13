@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from "next";
-import Heading from "../../components/Heading";
-import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
-import { listAllPosts } from "../../libs/wpUtils";
+import Heading from "../components/Heading";
+import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
+import { listAllPosts } from "../libs/wpUtils";
 import { default as dayjs } from "dayjs";
 import Link from "next/link";
 import { NextSeo } from "next-seo";
-import { SITE_TITLE } from "../../config";
+import { SITE_TITLE } from "../config";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")

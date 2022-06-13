@@ -1,11 +1,11 @@
 import { GetStaticProps, NextPage } from "next";
-import { PostBody } from "../../components/article";
-import Heading from "../../components/Heading";
-import fetch from "../../libs/polyfill/fetch";
-import { WPPost } from "../../libs/wpapi/interfaces";
-import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
+import { PostBody } from "../components/article";
+import Heading from "../components/Heading";
+import fetch from "../libs/polyfill/fetch";
+import { WPPost } from "../libs/wpapi/interfaces";
+import { WPAPIURLFactory } from "../libs/wpapi/UrlBuilder";
 import { NextSeo } from "next-seo";
-import { SITE_TITLE } from "../../config";
+import { SITE_TITLE } from "../config";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("pages")

@@ -9,6 +9,7 @@ import { PostList } from "../../components/article";
 import Heading from "../../components/Heading";
 import { NextSeo } from "next-seo";
 import { SITE_TITLE } from "../../config";
+import fetch from "../../libs/polyfill/fetch";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -68,12 +69,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const after = `${params.date}-01T00:00:00`;
   const before = `${nextMonth}-01T00:00:00`;
 
-  console.log("after", after);
-  console.log("before", before);
-  console.log("----------------------------------");
+  const posts = await fetch(
+    urlBuilder.perPage(100).after(after).before(before).getURL()
+  );
 
-  // const posts = await listAllPosts(urlBuilder.after(after).before(before));
-  const posts = await listAllPosts(urlBuilder);
+  console.log("posts", urlBuilder.getURL());
+  console.log("----------------------------------");
 
   return {
     props: {

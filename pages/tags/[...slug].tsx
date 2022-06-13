@@ -10,6 +10,7 @@ import { listAllPosts, listAllTags } from "../../libs/wpUtils";
 import Pagination from "../../components/Pagination";
 import { useCallback } from "react";
 import { useRouter } from "next/router";
+import Heading from "../../components/Heading";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("tags")
@@ -41,7 +42,7 @@ const TagListPage: NextPage<{
 
   return (
     <div>
-      <h2 className="text-[35px] mb-[1em]">Tag: {name}</h2>
+      <Heading title={`Tag: ${name}`} />
       <PostList posts={posts || []} />
       {totalPages > 1 && (
         <div className="flex justify-center">

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { default as dayjs } from "dayjs";
 
 import { canUseServerSideFeatures } from "../../libs/next.env";
@@ -7,6 +6,7 @@ import { WPAPIURLFactory } from "../../libs/wpapi/UrlBuilder";
 import { listAllPosts } from "../../libs/wpUtils";
 import { GetStaticProps, NextPage } from "next";
 import { PostList } from "../../components/article";
+import Heading from "../../components/Heading";
 
 const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
   .postType("posts")
@@ -19,7 +19,7 @@ const DateArchivePage: NextPage<{
   console.log("posts", posts);
   return (
     <div>
-      <h2 className="text-[35px] mb-[1em]">Date: {date}</h2>
+      <Heading title={`YYYY-MM: ${date}`} />
       <PostList posts={posts || []} />
     </div>
   );

@@ -26,13 +26,13 @@ const Layout: FC<LayoutProps> = ({ children }) => {
               active: true,
             },
             {
-              label: "articles",
-              href: "/",
+              label: "archives",
+              href: "/archives",
               active: false,
             },
             {
               label: "about",
-              href: "/",
+              href: "/about",
               active: false,
             },
           ],

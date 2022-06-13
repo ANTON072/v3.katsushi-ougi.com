@@ -16,10 +16,9 @@ const DateArchivePage: NextPage<{
   posts: WPPost[];
   date: string;
 }> = ({ date, posts }) => {
-  console.log("posts", posts);
   return (
     <div>
-      <Heading title={`YYYY-MM: ${date}`} />
+      <Heading title={`ARCHIVES: ${date}`} />
       <PostList posts={posts || []} />
     </div>
   );

@@ -12,6 +12,8 @@ export interface WPAPIURLBuilder {
   slug(slug: string): this;
   tags(tagIds: number[]): this;
   query(query: string): this;
+  after(query: string): this;
+  before(query: string): this;
   getURL(): string;
 }
 
@@ -27,6 +29,8 @@ export class WPAPIURLFactory {
         custom: "",
         slug: "",
         tags: "",
+        after: "",
+        before: "",
       },
     };
 
@@ -81,6 +85,16 @@ export class WPAPIURLFactory {
         return this;
       },
 
+      after(str: string) {
+        api.queryString.after = str;
+        return this;
+      },
+
+      before(str: string) {
+        api.queryString.before = str;
+        return this;
+      },
+
       getURL(): string {
         const url = [endpoint, namespace, api.path].join("/");
         const queryStringList = Object.entries(api.queryString);
@@ -92,6 +106,9 @@ export class WPAPIURLFactory {
               prevQueries.push(`search=${value}`);
             if (key === "slug" && !!value) prevQueries.push(`slug=${value}`);
             if (key === "tags" && !!value) prevQueries.push(`tags=${value}`);
+            if (key === "after" && !!value) prevQueries.push(`after=${value}`);
+            if (key === "before" && !!value)
+              prevQueries.push(`before=${value}`);
             if (key === "perPage") prevQueries.push(`per_page=${value}`);
             if (key === "startAt") prevQueries.push(`page=${value}`);
             if (key === "custom" && !!value) prevQueries.push(value);

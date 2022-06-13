@@ -133,9 +133,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const headers = res.headers;
   const posts = await res.json();
   const totalPages = headers.get("x-wp-totalpages");
-  console.log("targetTag.id ----->", targetTag.id);
-  console.log("totalPages ----->", totalPages);
-  console.log("=====================================");
 
   return {
     props: {

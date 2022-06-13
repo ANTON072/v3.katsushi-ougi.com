@@ -69,6 +69,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const before = `${nextMonth}-01T00:00:00`;
 
   const posts = await listAllPosts(urlBuilder.after(after).before(before));
+  console.log("posts", posts);
+  console.log("----------------------------------");
 
   return {
     props: {

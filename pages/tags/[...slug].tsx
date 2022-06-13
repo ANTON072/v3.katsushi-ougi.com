@@ -67,7 +67,7 @@ export default TagListPage;
 export const getStaticPaths: GetStaticPaths = async () => {
   const tags = await listAllTags(urlBuilder.startAt(1));
 
-  const posts = await listAllPosts(postsUrlBuilder.startAt(1));
+  const posts = await listAllPosts(postsUrlBuilder);
 
   const pageList = [];
 

@@ -79,7 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       date: params.date,
-      posts,
+      posts: posts || [],
     },
   };
 };

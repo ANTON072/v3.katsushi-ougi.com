@@ -45,6 +45,7 @@ export const getStaticPaths = async () => {
   return {
     paths: dateList.map((d) => ({
       params: {
+        id: d,
         date: d,
       },
     })),

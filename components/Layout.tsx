@@ -1,15 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import Script from "next/script";
 
 import GlobalFooter from "./GlobalFooter";
 import GlobalHeader from "./GlobalHeader";
 import Sidebar from "./Sidebar";
+import { useRouter } from "next/router";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 const Layout: FC<LayoutProps> = ({ children }) => {
+  const { asPath } = useRouter();
+
+  const activeNav = useMemo(() => {
+    if (asPath === "/") return "home";
+    if (/^\/archives(.+)?$/.test(asPath)) return "archives";
+    if (/^\/about(.+)?$/.test(asPath)) return "about";
+    return "";
+  }, [asPath]);
+
   return (
     <div className="flex h-[100%] flex-col content-between">
       <GlobalHeader
@@ -23,17 +33,17 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             {
               label: "home",
               href: "/",
-              active: true,
+              active: activeNav === "home",
             },
             {
               label: "archives",
               href: "/archives",
-              active: false,
+              active: activeNav === "archives",
             },
             {
               label: "about",
               href: "/about",
-              active: false,
+              active: activeNav === "about",
             },
           ],
         }}

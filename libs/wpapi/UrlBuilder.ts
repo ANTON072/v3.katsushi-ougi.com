@@ -112,8 +112,8 @@ export class WPAPIURLFactory {
             if (key === "perPage") prevQueries.push(`per_page=${value}`);
             if (key === "startAt") prevQueries.push(`page=${value}`);
             if (key === "custom" && !!value) prevQueries.push(value);
+            if (key === "nextjs" && !!value) prevQueries.push(`nextjs=true`);
 
-            prevQueries.push(`nextjs=true`);
             return prevQueries;
           }, [] as (string | number | boolean)[])
           .join("&");

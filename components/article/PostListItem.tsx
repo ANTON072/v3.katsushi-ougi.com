@@ -14,7 +14,7 @@ const PostListItem: FC<Props> = ({ post }) => {
   }, [post.slug]);
 
   return (
-    <div className="mb-[var(--padding)] md:mb-[calc(var(--padding)*2)]">
+    <div className="mb-[var(--padding)] lg:mb-[calc(var(--padding)*2)]">
       <PostTitle
         title={post.title.rendered}
         link={link}

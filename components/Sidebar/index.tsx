@@ -39,7 +39,7 @@ const Sidebar = () => {
   }, [tags]);
 
   return (
-    <aside className="pt-[var(--padding)] border-t-[1px] border-t-solid border-t-[color:var(--grey3)] md:w-[var(--sidebar-width)] md:pt-0 md:pl-[var(--padding)] md:border-t-0">
+    <aside className="pt-[var(--padding)] border-t-[1px] border-t-solid border-t-[color:var(--grey3)] lg:w-[var(--sidebar-width)] lg:pt-0 lg:pl-[var(--padding)] lg:border-t-0">
       <div id="sidebar_contents">
         <About />
         <Topics items={tagItems} />

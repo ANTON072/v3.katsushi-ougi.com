@@ -11,8 +11,8 @@ export type GlobalHeaderProps = {
 const GlobalHeader: FC<GlobalHeaderProps> = ({ siteTitle, navigation }) => {
   return (
     <header className="bg-[color:var(--grey1)]">
-      <div className="flex flex-col px-[var(--padding)] md:justify-between md:pl-[calc(var(--padding)*2)] md:pr-[calc(var(--padding))] md:h-[var(--header-height)] md:max-w-[var(--max-width)] md:mx-auto md:flex-row">
-        <div className="pt-[var(--padding)] md:pt-[calc(var(--padding)*2-5px)]">
+      <div className="flex flex-col px-[var(--padding)] lg:justify-between lg:pl-[calc(var(--padding)*2)] lg:pr-[calc(var(--padding))] lg:h-[var(--header-height)] lg:max-w-[var(--max-width)] lg:mx-auto lg:flex-row">
+        <div className="pt-[var(--padding)] lg:pt-[calc(var(--padding)*2-5px)]">
           <SiteTitle {...siteTitle} />
         </div>
         <Navigation {...navigation} />

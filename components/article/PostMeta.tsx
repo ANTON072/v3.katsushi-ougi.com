@@ -10,7 +10,7 @@ export type PostMetaProps = {
 
 const PostMeta: FC<PostMetaProps> = ({ createdAt, tags }) => {
   return (
-    <div className="mt-[calc(var(--padding)/2)] flex md:flex-row">
+    <div className="mt-[calc(var(--padding)/2)] flex lg:flex-row">
       <time className="pr-[0.5em] mr-[0.5em] border-r-[1px] border-r-solid border-r-grey3">
         {formatPostDateToString(createdAt)}
       </time>

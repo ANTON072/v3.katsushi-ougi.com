@@ -8,7 +8,7 @@ export type NavigationProps = {
 
 const Navigation: FC<NavigationProps> = ({ list }) => {
   return (
-    <ul className="uppercase font-en font-[700] flex leading-[1] my-[var(--padding)] ml-[-1rem] md:text-[1.25rem] md:relative md:right-[calc(-1 * var(--padding))] md:m-0">
+    <ul className="uppercase font-en font-[700] flex leading-[1] my-[var(--padding)] ml-[-1rem] lg:text-[1.25rem] lg:relative lg:right-[calc(-1 * var(--padding))] lg:m-0">
       {list.map(({ label, href, active }) => (
         <li key={label}>
           <Link href={href}>
@@ -16,19 +16,19 @@ const Navigation: FC<NavigationProps> = ({ list }) => {
               className={clsx(
                 "p-[1rem]",
                 "block",
-                "md:flex",
-                "md:flex-col",
-                "md:justify-end",
-                "md:h-[144px]",
-                "md:px-[var(--padding)]",
+                "lg:flex",
+                "lg:flex-col",
+                "lg:justify-end",
+                "lg:h-[144px]",
+                "lg:px-[var(--padding)]",
                 active && "bg-[color:var(--grey2)]",
-                "md:after:block",
-                "md:after:h-[29px]",
-                "md:after:content-['']",
-                "md:hover:bg-[color:var(--grey2)]",
-                "md:hover:transition-background",
-                "md:hover:ease-linear",
-                "md:over:duration-[0.2s]"
+                "lg:after:block",
+                "lg:after:h-[29px]",
+                "lg:after:content-['']",
+                "lg:hover:bg-[color:var(--grey2)]",
+                "lg:hover:transition-background",
+                "lg:hover:ease-linear",
+                "lg:over:duration-[0.2s]"
               )}
             >
               {label}

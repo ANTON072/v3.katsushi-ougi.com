@@ -13,11 +13,11 @@ type Props = {
 
 const PostTitle: FC<Props> = ({ link, title, createdAt, tags }) => {
   return (
-    <div className="pb-[1rem] mb-[1rem] border-b-solid border-b-[1px] border-b-[color:var(--grey3)] md:mb-[var(--padding)] md:pb-[var(--padding)]">
+    <div className="pb-[1rem] mb-[1rem] border-b-solid border-b-[1px] border-b-[color:var(--grey3)] lg:mb-[var(--padding)] lg:pb-[var(--padding)]">
       <h2 className="text-[1.75rem] font-bold">
         <Link href={link}>
           <a
-            className="md:hover:text-[color:var(--red)]"
+            className="lg:hover:text-[color:var(--red)]"
             dangerouslySetInnerHTML={{
               __html: title,
             }}

@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import SearchBox from "./index";
+import IndexSearch from "./index";
 
 export default {
-  component: SearchBox,
-} as ComponentMeta<typeof SearchBox>;
+  component: IndexSearch,
+} as ComponentMeta<typeof IndexSearch>;
 
-const Template: ComponentStory<typeof SearchBox> = (args) => (
-  <div style={{ maxWidth: "700px" }}>
-    <SearchBox {...args} />
+const Template: ComponentStory<typeof IndexSearch> = (args) => (
+  <div style={{ maxWidth: "900px" }}>
+    <IndexSearch {...args} />
   </div>
 );
 

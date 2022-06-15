@@ -8,9 +8,10 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL as string)
 
 (async () => {
   try {
-    const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID as string;
-    const ALGOLIA_API_KEY = process.env.ALGOLIA_API_KEY as string;
-    const ALGOLIA_INDEX_NAME = process.env.ALGOLIA_INDEX_NAME as string;
+    const ALGOLIA_APP_ID = process.env.NEXT_PUBLIC_ALGOLIA_APP_ID as string;
+    const ALGOLIA_API_KEY = process.env.ALGOLIA_SECRET_KEY as string;
+    const ALGOLIA_INDEX_NAME = process.env
+      .NEXT_PUBLIC_ALGOLIA_INDEX_NAME as string;
 
     const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 

@@ -21,10 +21,9 @@ const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL as string)
 
     const formattedPosts = posts.map((post) => ({
       objectID: post.id,
-      slug: post.slug,
+      url: `https://katsushi-ougi.com/${post.slug}`,
       title: post.title.rendered,
       content: post.content.rendered,
-      tags: post.tags.map((tag) => tag.name),
     }));
 
     index

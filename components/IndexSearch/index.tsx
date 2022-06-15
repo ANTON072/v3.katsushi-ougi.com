@@ -1,17 +1,8 @@
 import { FC } from "react";
 import { MultipleQueriesQuery } from "@algolia/client-search";
 import algoliasearch from "algoliasearch/lite";
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Configure,
-  Pagination,
-  PoweredBy,
-} from "react-instantsearch-dom";
+import { InstantSearch, SearchBox, Configure } from "react-instantsearch-dom";
 
-import "./satellite.scss";
-import HitComponent from "./HitComponent";
 import SearchResult from "./SearchResult";
 
 const algoliaClient = algoliasearch(

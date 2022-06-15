@@ -11,6 +11,8 @@ import {
 } from "react-instantsearch-dom";
 
 import "./satellite.scss";
+import HitComponent from "./HitComponent";
+import SearchResult from "./SearchResult";
 
 const algoliaClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
@@ -41,15 +43,13 @@ const searchClient = {
 
 const IndexSearch: FC = () => {
   return (
-    <>
+    <div className="p-[30px] bg-white rounded drop-shadow-md">
       <InstantSearch indexName={indexName} searchClient={searchClient}>
         <Configure hitsPerPage={5} />
         <SearchBox />
-        <Hits />
-        <Pagination />
-        <PoweredBy />
+        <SearchResult />
       </InstantSearch>
-    </>
+    </div>
   );
 };
 

@@ -1324,3 +1324,12 @@
     font-size: 1rem;
   }
 }
+
+.ais-Hits-item {
+  margin-bottom: 15px;
+  padding: 0;
+  font-weight: bold;
+  &:hover {
+    background: var(--grey3);
+  }
+}

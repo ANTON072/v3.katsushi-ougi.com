@@ -1,38 +1,29 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import About from "./About";
 import Topics from "./Topics";
 import useTags from "../../libs/hooks/useTags";
-import { useMount } from "react-use";
 import FixedSidebar from "../../libs/FixedSidebar";
 import LaunchButton from "../IndexSearch/LaunchButton";
 import IndexSearchDialog from "../IndexSearch/IndexSearchDialog";
-
-const initialize = () => {
-  if (window !== undefined) {
-    const fixedSidebar = new FixedSidebar();
-
-    if (window.matchMedia("(min-width: 992px)").matches) {
-      /** PC用ブレークポイント */
-      fixedSidebar.scrollTrigger.enable();
-    } else {
-      /** SP用ブレークポイント */
-      fixedSidebar.scrollTrigger.disable();
-    }
-  }
-};
+import { useMedia } from "react-use";
 
 const Sidebar = () => {
   const { tags } = useTags();
 
   const [showDialog, setShowDialog] = useState(false);
 
-  useMount(() => {
+  const isWide = useMedia("(min-width: 1024px)");
+
+  useEffect(() => {
     if (window !== undefined) {
-      const mediaQueryList = window.matchMedia("(max-width:767px)");
-      mediaQueryList.addEventListener("change", initialize);
-      mediaQueryList.dispatchEvent(new Event("change"));
+      const fixedSidebar = new FixedSidebar();
+      if (isWide) {
+        fixedSidebar.scrollTrigger.enable();
+      } else {
+        fixedSidebar.scrollTrigger.kill();
+      }
     }
-  });
+  }, [isWide]);
 
   const tagItems = useMemo(() => {
     return tags.map((tag) => ({

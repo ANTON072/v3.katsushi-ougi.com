@@ -1,15 +1,16 @@
 {
   "name": "v3.katsushi-ougi.com",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build:next": "next build",
+    "build": "run-s save-indexes build:next",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
     "storybook": "start-storybook -p 6006",
-    "export": "next build && next export",
+    "export:next": "next export",
+    "export": "run-s build export:next",
     "build-storybook": "build-storybook",
     "save-indexes": "ts-node ./scripts/indexing.ts"
   },
@@ -51,6 +52,7 @@
     "eslint-config-next": "12.1.6",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-storybook": "^0.5.12",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.14",
     "prettier": "2.6.2",
     "sass": "^1.52.2",
@@ -58,8 +60,5 @@
     "tailwindcss": "^3.0.24",
     "ts-node": "^10.8.1",
     "typescript": "4.7.2"
-  },
-  "resolutions": {
-    "@types/react": "17.0.39"
   }
 }

@@ -4,7 +4,7 @@ const LaunchButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = (props) => {
   return (
     <button
       type="button"
-      className="hidden sm:flex items-center w-[100%] text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-300 hover:ring-slate-400 focus:outline-none focus:ring-2 shadow-sm rounded-lg text-[color:var(--grey1)]"
+      className="sm:flex items-center w-[100%] text-left space-x-3 px-4 h-12 bg-white ring-1 ring-slate-300 hover:ring-slate-400 focus:outline-none focus:ring-2 shadow-sm rounded-lg text-[color:var(--grey1)]"
       {...props}
     >
       <svg

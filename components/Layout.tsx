@@ -5,7 +5,6 @@ import GlobalFooter from "./GlobalFooter";
 import GlobalHeader from "./GlobalHeader";
 import Sidebar from "./Sidebar";
 import { useRouter } from "next/router";
-import { GithubForkBanner } from "react-github-fork-banner";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -60,7 +59,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
           <Sidebar />
         </div>
         <GlobalFooter />
-        {/* <Script src="/prism.js" /> */}
         <Script
           id="mkaz-code-syntax-prism-js-js-extra"
           dangerouslySetInnerHTML={{
@@ -70,10 +68,6 @@ var prism_settings = {"pluginUrl":"https:\/\/wp.katsushi-ougi.com\/wp-content\/p
           }}
         />
       </div>
-      <GithubForkBanner
-        animation="all"
-        customHref="https://github.com/ANTON072/v3.katsushi-ougi.com"
-      />
     </>
   );
 };

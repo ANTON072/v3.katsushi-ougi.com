@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next dev",
     "build:next": "next build",
-    "build": "run-s save-indexes build:next",
+    "build:sitemap": "next-sitemap",
+    "build": "run-s save-indexes build:next build:sitemap",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
@@ -27,6 +28,7 @@
     "next": "12.1.2",
     "next-http-proxy-middleware": "^1.2.4",
     "next-seo": "^5.4.0",
+    "next-sitemap": "^3.0.5",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-instantsearch-dom": "^6.27.0",

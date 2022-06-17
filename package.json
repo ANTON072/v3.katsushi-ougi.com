@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build:next": "next build",
     "build:sitemap": "next-sitemap",
-    "build": "run-s save-indexes build:next build:sitemap",
+    "build": "run-s save-indexes build:next",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",

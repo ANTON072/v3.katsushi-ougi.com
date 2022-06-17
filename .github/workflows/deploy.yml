@@ -5,6 +5,13 @@ on:
     branches:
       - main
 
+env:
+  WORDPRESS_URL: ${{ secrets.WORDPRESS_URL }}
+  NEXT_PUBLIC_ALGOLIA_APP_ID: ${{ secrets.NEXT_PUBLIC_ALGOLIA_APP_ID }}
+  NEXT_PUBLIC_ALGOLIA_API_KEY: ${{ secrets.NEXT_PUBLIC_ALGOLIA_API_KEY }}
+  NEXT_PUBLIC_ALGOLIA_INDEX_NAME: ${{ secrets.NEXT_PUBLIC_ALGOLIA_INDEX_NAME }}
+  ALGOLIA_SECRET_KEY: ${{ secrets.ALGOLIA_SECRET_KEY }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

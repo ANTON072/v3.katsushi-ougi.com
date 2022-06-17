@@ -52,7 +52,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <div className="flex-1 flex w-[100%] max-w-[var(--max-width)] px-[var(--padding)] mt-[var(--padding)] flex-col lg:flex-row lg:mt-[calc(var(--padding)*2)] lg:mx-auto">
           <main
             id="main"
-            className="flex-1 w-[100%] lg:max-w-[calc(var(--max-width)-var(--sidebar-width)-var(--padding)*2)] lg:pr-[calc(var(--padding)*2)] lg:pl-[var(--padding)] lg:border-r-solid lg:border-r-[1px] lg:border-r-[color:var(--grey3),width:1px]"
+            className="flex-1 w-[100%] pb-[var(--padding)] lg:max-w-[calc(var(--max-width)-var(--sidebar-width)-var(--padding)*2)] lg:pr-[calc(var(--padding)*2)] lg:pl-[var(--padding)] lg:border-r-solid lg:border-r-[1px] lg:border-r-[color:var(--grey3),width:1px]"
           >
             {children}
           </main>

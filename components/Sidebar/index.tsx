@@ -1,29 +1,42 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import About from "./About";
 import Topics from "./Topics";
 import useTags from "../../libs/hooks/useTags";
 import FixedSidebar from "../../libs/FixedSidebar";
 import LaunchButton from "../IndexSearch/LaunchButton";
 import IndexSearchDialog from "../IndexSearch/IndexSearchDialog";
-import { useMedia } from "react-use";
+import { useMedia, useMount } from "react-use";
+import { useRouter } from "next/router";
 
 const Sidebar = () => {
   const { tags } = useTags();
+
+  const router = useRouter();
 
   const [showDialog, setShowDialog] = useState(false);
 
   const isWide = useMedia("(min-width: 1024px)");
 
+  const [fixedSidebar, setFixedSidebar] = useState<FixedSidebar>();
+
   useEffect(() => {
-    if (window !== undefined) {
-      const fixedSidebar = new FixedSidebar();
-      if (isWide) {
-        fixedSidebar.scrollTrigger.enable();
-      } else {
-        fixedSidebar.scrollTrigger.kill();
-      }
+    if (window === undefined || !fixedSidebar) return;
+    if (isWide) {
+      fixedSidebar.scrollTrigger.enable();
+    } else {
+      fixedSidebar.scrollTrigger.disable();
     }
-  }, [isWide]);
+  }, [isWide, fixedSidebar]);
+
+  useMount(() => {
+    if (window === undefined) return;
+    setFixedSidebar(new FixedSidebar());
+  });
+
+  useEffect(() => {
+    if (window === undefined || !fixedSidebar) return;
+    fixedSidebar.scrollTrigger.refresh();
+  }, [router.pathname, fixedSidebar]);
 
   const tagItems = useMemo(() => {
     return tags.map((tag) => ({

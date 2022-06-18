@@ -117,6 +117,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
+  const urlBuilder = WPAPIURLFactory.init(process.env.WORDPRESS_URL)
+    .postType("tags")
+    .startAt(1);
+
   const slug = params.slug[0];
 
   const page = parseInt(params.slug[1], 10) || 1;

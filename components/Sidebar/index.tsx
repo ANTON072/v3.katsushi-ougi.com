@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
 import About from "./About";
 import Topics from "./Topics";
 import useTags from "../../libs/hooks/useTags";
@@ -7,6 +8,12 @@ import LaunchButton from "../IndexSearch/LaunchButton";
 import IndexSearchDialog from "../IndexSearch/IndexSearchDialog";
 import { useMedia, useMount } from "react-use";
 import { useRouter } from "next/router";
+
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
 
 const Sidebar = () => {
   const { tags } = useTags();
@@ -54,6 +61,9 @@ const Sidebar = () => {
             <LaunchButton
               onClick={() => {
                 setShowDialog(!showDialog);
+                window.dataLayer.push({
+                  event: "on_click_search",
+                });
               }}
             />
           </div>

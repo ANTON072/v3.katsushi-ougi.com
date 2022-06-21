@@ -28,14 +28,7 @@ const listAllPosts = async (
   const perPage = 20;
 
   try {
-    const urlBuilder = APIURLBuilder.perPage(20);
-
-    if (posts.length === 0) {
-      urlBuilder.startAt(1);
-    }
-
-    const url = urlBuilder.getURL();
-
+    const url = APIURLBuilder.perPage(20).getURL();
     const response = await fetch(url);
 
     // エラーレスポンスの場合はレスポンスをスローして中断
@@ -62,10 +55,10 @@ const listAllPosts = async (
 
     // 再帰の実行
     return listAllPosts(APIURLBuilder, mergedPosts);
-  } catch (error: any) {
-    if (error.code && error.code === "rest_invalid_param") {
-      return posts;
-    }
+  } catch (error) {
+    // if (error.code && error.code === "rest_invalid_param") {
+    //   return posts;
+    // }
 
     throw error;
   }
@@ -79,9 +72,8 @@ const listAllTags = async (
   tags: WPTag[] = []
 ): Promise<WPTag[]> => {
   const perPage = 20;
-
   try {
-    const url = APIURLBuilder.perPage(perPage).getURL();
+    const url = APIURLBuilder.perPage(20).getURL();
     const response = await fetch(url);
 
     // エラーレスポンスの場合はレスポンスをスローして中断
@@ -101,11 +93,7 @@ const listAllTags = async (
     APIURLBuilder.nextPage();
 
     return listAllTags(APIURLBuilder, mergedTags);
-  } catch (error: any) {
-    if (error.code && error.code === "rest_invalid_param") {
-      return tags;
-    }
-
+  } catch (error) {
     throw error;
   }
 };

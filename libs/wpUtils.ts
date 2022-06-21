@@ -53,7 +53,7 @@ const listAllPosts = async (
     //   return mergedPosts;
     // }
 
-    if (response.length < perPage) {
+    if (response.length <= perPage) {
       return mergedPosts;
     }
 
@@ -94,7 +94,7 @@ const listAllTags = async (
 
     const mergedTags = [...tags, ...response];
 
-    if (canUseServerSideFeatures() || response.length < perPage) {
+    if (canUseServerSideFeatures() || response.length <= perPage) {
       return mergedTags;
     }
 

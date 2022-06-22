@@ -30,33 +30,29 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // サイズ設定
-  const viewport = { width: 1200, height: 630 };
+  try {
+    // const title = getTitle(req);
+    const html = getHtml({
+      title: `WordPress の REST API から記事を全件取得する`,
+    });
+    const viewport = { width: 1200, height: 630 };
+    const launchOptions = await getLaunchOptions();
+    const browser = await playwright.launchChromium(launchOptions);
+    const page = await browser.newPage({ viewport });
 
-  // ブラウザインスタンスの生成
-  // const launchOptions = await getLaunchOptions();
-  const browser = await playwright.launchChromium();
+    await page.setContent(html, { waitUntil: "networkidle" });
 
-  const page = await browser.newPage({ viewport });
+    const buffer = await page.screenshot({ type: "png" });
+    await browser.close();
 
-  // HTMLの生成
-  const html = getHtml({
-    title: `WordPress の REST API から記事を全件取得する`,
-  });
+    // Set the s-maxage property which caches the images then on the Vercel edge
+    res.setHeader("Cache-Control", "s-maxage=31536000, stale-while-revalidate");
+    res.setHeader("Content-Type", "image/png");
 
-  // HTMLをセットして、ページの読み込み完了を待つ
-  await page.setContent(html, { waitUntil: "domcontentloaded" });
-
-  // スクリーンショットを取得する
-  const image = await page.screenshot({ type: "png" });
-  await browser.close();
-
-  // Vercel Edge Networkのキャッシュを利用するための設定
-  res.setHeader("Cache-Control", "s-maxage=31536000, stale-while-revalidate");
-
-  // Content Type を設定
-  res.setHeader("Content-Type", "image/png");
-
-  // レスポンスを返す
-  res.end(image);
+    // write the image to the response with the specified Content-Type
+    res.end(buffer);
+  } catch (error) {
+    console.error("[Error]: ", error);
+    res.status(404).json({ message: "Cannot render og-image" });
+  }
 }

@@ -11,7 +11,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Noto Sans JP';
   background: black;
   color: #FFF;
 }
@@ -22,21 +21,22 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 80px;
+  padding: 60px;
   box-sizing: border-box;
 }
 .site-title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 900;
   font-family: 'Roboto Condensed';
 }
 .title {
-  font-size: 50px;
+  font-size: 60px;
   font-feature-settings: "palt";
   font-weight: bold;
+  font-family: 'Noto Sans JP';
 }
 .author {
-  font-size: 40px;
+  font-size: 60px;
   font-weight: 900;
   font-family: 'Roboto Condensed';
 }

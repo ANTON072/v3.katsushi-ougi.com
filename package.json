@@ -29,6 +29,8 @@
     "next-http-proxy-middleware": "^1.2.4",
     "next-seo": "^5.4.0",
     "next-sitemap": "^3.0.5",
+    "playwright-aws-lambda": "^0.8.0",
+    "playwright-core": "^1.22.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-instantsearch-dom": "^6.27.0",

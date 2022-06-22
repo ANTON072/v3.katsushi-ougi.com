@@ -34,8 +34,7 @@ export default async function handler(
   const viewport = { width: 1200, height: 630 };
 
   // ブラウザインスタンスの生成
-  const launchOptions = await getLaunchOptions();
-
+  // const launchOptions = await getLaunchOptions();
   const browser = await playwright.launchChromium();
 
   const page = await browser.newPage({ viewport });
